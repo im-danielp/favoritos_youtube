@@ -5,6 +5,23 @@ import 'package:http/http.dart' as http;
 
 class DataSearch extends SearchDelegate<String?> {
   @override
+  ThemeData appBarTheme(BuildContext context) {
+    return ThemeData(
+      scaffoldBackgroundColor: Colors.black,
+      textTheme: const TextTheme(titleLarge: TextStyle(color: Colors.white, fontSize: 18)),
+      textSelectionTheme: const TextSelectionThemeData(cursorColor: Colors.white),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.black,
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
+      inputDecorationTheme: const InputDecorationTheme(
+        hintStyle: TextStyle(color: Colors.white54),
+        border: InputBorder.none,
+      ),
+    );
+  }
+
+  @override
   List<Widget>? buildActions(BuildContext context) {
     return [
       IconButton(

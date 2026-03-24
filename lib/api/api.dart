@@ -7,16 +7,24 @@ import 'package:http/http.dart' as http;
 final String? kAPIKEY = dotenv.env['API_KEY'];
 
 class API {
-  Future<void> search(String search) async {
-    http.Response response = await http.get(
-      Uri.parse(YTEndPoints.loadVideosBySearch(search)),
-    );
-    decode(response);
+  String _search = '';
+  String _nextToken = '';
+
+  Future<List<Video>> search(String search) async {
+    _search = search;
+    http.Response response = await http.get(Uri.parse(YTEndPoints.loadVideosBySearch(search)));
+    return decode(response);
+  }
+
+  Future<List<Video>> nextPage() async {
+    http.Response response = await http.get(Uri.parse(YTEndPoints.nextPage(_search, _nextToken)));
+    return decode(response);
   }
 
   List<Video> decode(http.Response response) {
     if (response.statusCode == 200) {
       final decoded = jsonDecode(response.body);
+      _nextToken = decoded['nextPageToken'] ?? '';
       List<Video> videos = decoded['items'].map<Video>((map) => Video.fromJson(map)).toList();
       return videos;
     } else {
