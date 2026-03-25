@@ -1,3 +1,4 @@
+import 'package:favoritos_youtube/blocs/favorite_bloc.dart';
 import 'package:favoritos_youtube/blocs/videos_bloc.dart';
 import 'package:favoritos_youtube/screens/home.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +15,11 @@ class FavoritosYoutube extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => VideosBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<VideosBloc>(create: (BuildContext context) => VideosBloc()),
+        BlocProvider<FavoriteBloc>(create: (BuildContext context) => FavoriteBloc()),
+      ],
       child: MaterialApp(
         title: 'Favoritos Youtube',
         theme: ThemeData(
