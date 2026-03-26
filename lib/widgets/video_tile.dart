@@ -19,9 +19,7 @@ class VideoTile extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => VideoPlayerScreen(video: video),
-          ),
+          MaterialPageRoute(builder: (context) => VideoPlayerScreen(video: video)),
         );
       },
       child: Container(
@@ -42,7 +40,10 @@ class VideoTile extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.fromLTRB(12, 10, 8, 0),
-                  child: CircleAvatar(backgroundColor: Colors.grey),
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(video.channelLogo),
+                    backgroundColor: Colors.white12,
+                  ),
                 ),
                 Expanded(
                   child: Padding(
